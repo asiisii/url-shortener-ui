@@ -16,7 +16,7 @@ describe('Homepage', () => {
       .contains('https://images.unsplash.com/photo-1531898418865-480b7090470f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80')
   })
 
-  it.only('should be able to see Form and proper inputs', () => {
+  it('should be able to see Form and proper inputs', () => {
     cy.get('form')
       .find('input').should('have.length', 2)
       .get('button').should('have.text', 'Shorten Please!')
@@ -24,5 +24,23 @@ describe('Homepage', () => {
       .should('have.value', 'Test2')
       .get('input[name="urlToShorten"]').type('https://images.unsplash.com/photo-1531898418865-480b7090470f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80')
       .should('have.value', 'https://images.unsplash.com/photo-1531898418865-480b7090470f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80')
+  })
+
+  it.only('shuld be able to see new shortened URL in DOM after submitting', () => {
+    cy.get('form')
+      .find('input').should('have.length', 2)
+      .get('button').should('have.text', 'Shorten Please!')
+      .get('input[name="title"]').type('Test 2')
+      .should('have.value', 'Test 2')
+      .get('input[name="urlToShorten"]').type('https://images.unsplash.com/photo-1531898418865-480b7090470f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80')
+      .should('have.value', 'https://images.unsplash.com/photo-1531898418865-480b7090470f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80')
+      .get('button').click()
+      .get('.url').should('have.length', 2)
+      .get('h3').should('have.length', 2)
+      .eq(1).should('have.text','Test 2')
+      .get('a')
+      .contains('http://localhost:3001/useshorturl/2')
+      .get('p')
+      .contains('https://images.unsplash.com/photo-1531898418865-480b7090470f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80')
   })
 })
