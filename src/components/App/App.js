@@ -34,7 +34,7 @@ export class App extends Component {
       <main className="App">
         <header>
           <h1>URL Shortener</h1>
-          <UrlForm />
+          <UrlForm submitNewUrl={this.submitNewUrl}/>
         </header>
         {!this.state.urls.length && <h1>Loading..</h1>}
         {this.state.urls.length && 
