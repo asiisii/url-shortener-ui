@@ -17,9 +17,9 @@ class UrlForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
     const newUrl = {
-      id: new Date().valueOf(),
+      // id: new Date().valueOf(),
       title: this.state.title,
-      short_url: this.state.urlToShorten,
+      // short_url: this.state.urlToShorten,
       long_url: this.state.urlToShorten
     }
     this.props.submitNewUrl(newUrl)
