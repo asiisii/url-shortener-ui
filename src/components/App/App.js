@@ -8,11 +8,19 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      urls: []
+      urls: [],
+      error: ''
     }
   }
 
-  componentDidMount() {
+  componentDidMount = async () => {
+    try {
+      const allUrls = await getUrls()
+      console.log(allUrls);
+      this.setState({urls: allUrls.urls})
+    } catch (e) {
+      this.setState({error: `oops something went wrong`})
+    }
   }
 
   render() {
@@ -22,8 +30,10 @@ export class App extends Component {
           <h1>URL Shortener</h1>
           <UrlForm />
         </header>
-
+        {!this.state.urls.length && <h1>Loading..</h1>}
+        {this.state.urls.length && 
         <UrlContainer urls={this.state.urls}/>
+        } 
       </main>
     );
   }
