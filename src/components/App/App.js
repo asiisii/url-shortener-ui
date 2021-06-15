@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getUrls } from '../../apiCalls';
+import { getUrls, postUrls } from '../../apiCalls';
 import UrlContainer from '../UrlContainer/UrlContainer';
 import UrlForm from '../UrlForm/UrlForm';
 
@@ -21,6 +21,12 @@ export class App extends Component {
     } catch (e) {
       this.setState({error: `oops something went wrong`})
     }
+  }
+
+  submitNewUrl = newUrl => {
+    postUrls(newUrl)
+      .then(response => response.ok && response.json())
+      .catch(() => this.setState({error: `Check the url data`}))
   }
 
   render() {
