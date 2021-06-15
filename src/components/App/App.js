@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { getUrls, postUrls } from '../../apiCalls';
+import { deleteUrl, getUrls, postUrls } from '../../apiCalls';
 import UrlContainer from '../UrlContainer/UrlContainer';
 import UrlForm from '../UrlForm/UrlForm';
 
@@ -36,6 +36,18 @@ export class App extends Component {
 
   }
 
+  deleteUrl = id => {
+    console.log(id);
+    deleteUrl(id)
+    .then(() => {
+      const urls = this.state.urls.find(url => url.id === id)
+      const getIndex = this.state.urls.indexOf(urls)
+      this.state.urls.splice(getIndex, 1)
+    })
+    // console.log(this.state.urls.indexOf(urls));
+    // console.log(urls);
+  }
+
   render() {
     return (
       <main className="App">
@@ -45,7 +57,7 @@ export class App extends Component {
         </header>
         {!this.state.urls.length && <h1>Loading..</h1>}
         {this.state.urls.length && 
-        <UrlContainer urls={this.state.urls}/>
+        <UrlContainer urls={this.state.urls} deleteUrl={this.deleteUrl}/>
         } 
       </main>
     );
