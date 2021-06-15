@@ -25,12 +25,15 @@ export class App extends Component {
 
   submitNewUrl = newUrl => {
     console.log(newUrl);
-    this.setState({urls: [...this.state.urls, newUrl]})
     postUrls(newUrl)
+    // this.setState({urls: [...this.state.urls, newUrl]})
       // .then(response => response.json())
-      // .catch(() => this.setState({error: `Check the url data`}))
+      .then(url => {
+        console.log(url)
+        this.setState({ urls: [...this.state.urls, url]})
+      })
+      .catch(() => this.setState({error: `Check the url data`}))
 
-    //   .then(url => this.setState({ urls: [...this.state.urls, url]}))
   }
 
   render() {
